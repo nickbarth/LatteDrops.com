@@ -100,4 +100,8 @@
   } else {
     fileShare = new FileShare('share-file', 'example', 'share-url', window.location.hash.substr(1));
   }
+
+  window.addEventListener("hashchange", function () {
+    window.location.reload(true);
+  }, false);
 })();
