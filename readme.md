@@ -1,4 +1,4 @@
-# [LatteDrops](http://lattedrops.com)
+# LatteDrops.com
 
 ### License
 
