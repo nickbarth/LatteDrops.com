@@ -53,32 +53,45 @@
   };
 
   FileShare.prototype.dragEnter = function (event) {
-    console.log('drag enter');
     event.dataTransfer.dropEffect = 'move';
     event.target.classList.add('over');
   };
 
   FileShare.prototype.dragOver = function (event) {
-    console.log('drag over');
     event.preventDefault();
   };
 
+  FileShare.prototype.sendURL = function (url) {
+    var connection = this.getConnection()
+    connection.send(url);
+  };
+
+  FileShare.prototype.sendUpload = function (event) {
+    var fileReader = new FileReader();
+
+    fileReader.readAsText(event.target.files[0]);
+    fileReader.addEventListener('load', function (event) {
+      this.sendURL(event.target.result);
+    }.bind(this), false);
+  };
+
+  FileShare.prototype.readURL = function (event) {
+    return event.dataTransfer.getData('text/html').match(/src=["'](.+?)['"]/)[1];
+  }
+
   FileShare.prototype.drop = function (event) {
-    console.log('drop');
-
-    var src = event.dataTransfer.getData('text/html').match(/src=["'](.+?)['"]/)[1],
-      connection = null;
-
     event.stopPropagation();
     event.preventDefault();
     event.target.classList.remove('over');
 
-    var connection = this.getConnection()
-    connection.send(src);
+    if (!event.target.files.length) {
+      this.sendURL(this.readURL(event));
+    } else {
+      this.sendUpload(event);
+    }
   };
 
   FileShare.prototype.dragLeave = function (event) {
-    console.log('drag leave');
     event.target.classList.remove('over');
   };
 
