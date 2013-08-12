@@ -1,7 +1,7 @@
 html, body {
   font-family: Georgia, Helvetica, Arial, sans-serif;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: url(/LatteDrops.com/images/purty_wood.png);
+  background: url(/images/purty_wood.png);
   margin: 0;
   padding: 0;
 }
@@ -92,7 +92,7 @@ a:hover {
   color: #eee;
   background: rgba(219,209,175,1.0);
   background: #fff;
-  background: url(/LatteDrops.com/images/purty_wood.png);
+  background: url(/images/purty_wood.png);
   width: 80px;
   text-align: center;
   border-radius: 50%;
