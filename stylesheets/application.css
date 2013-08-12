@@ -1,8 +1,12 @@
+* {
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 0;
+}
+
 html, body {
   background: url(/images/purty_wood.png);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
 }
 
 body {
@@ -58,8 +62,6 @@ a:hover {
 .stripes {
   border-bottom: 1px solid #eee;
   border-top: 1px solid #eee;
-  margin: 0;
-  padding: 0;
   position: relative;
   vertical-align: middle;
 }
