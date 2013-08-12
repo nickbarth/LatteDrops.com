@@ -35,6 +35,10 @@
     }
   };
 
+  FileShare.prototype.getHash = function () {
+    return this.hash;
+  };
+
   FileShare.prototype.getConnection = function () {
     if (!this.connection) {
       window.location.hash = this.hash;
@@ -77,7 +81,7 @@
 
   FileShare.prototype.readURL = function (event) {
     return event.dataTransfer.getData('text/html').match(/src=["'](.+?)['"]/)[1];
-  }
+  };
 
   FileShare.prototype.drop = function (event) {
     event.stopPropagation();
@@ -102,6 +106,8 @@
   }
 
   window.addEventListener("hashchange", function () {
-    window.location.reload(true);
+    if (window.location.hash.substr(1) !== fileShare.getHash()) {
+      window.location.reload(true);
+    }
   }, false);
 })();
