@@ -69,7 +69,7 @@
   FileShare.prototype.sendUpload = function (event) {
     var fileReader = new FileReader();
 
-    fileReader.readAsText(event.target.files[0]);
+    fileReader.readAsDataURL(event.dataTransfer.files[0]);
     fileReader.addEventListener('load', function (event) {
       this.sendURL(event.target.result);
     }.bind(this), false);
@@ -84,10 +84,10 @@
     event.preventDefault();
     event.target.classList.remove('over');
 
-    if (!event.target.files.length) {
-      this.sendURL(this.readURL(event));
-    } else {
+    if (event.dataTransfer.files.length) {
       this.sendUpload(event);
+    } else {
+      this.sendURL(this.readURL(event));
     }
   };
 
