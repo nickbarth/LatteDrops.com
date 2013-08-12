@@ -1,0 +1,228 @@
+html, body {
+  font-family: Georgia, Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: url(/images/purty_wood.png);
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  border-top: 10px solid rgba(255, 255, 255, 0.5);
+  padding-top: 20px;
+}
+
+a, a:hover {
+  color: #000;
+  text-decoration: none;
+  color: #000;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #000;
+}
+
+.brand a, .brand a:hover {
+  text-decoration: none;
+}
+
+.brand h1 {
+  font-family: sans-serif;
+  font-family: 'Source Code Pro', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #a75;
+  color: #000;
+  color: #fff;
+  font-size: 38px;
+  text-shadow:
+       1px 1px 1px #000,
+     -1px -1px 1px #000,
+      1px -1px 1px #000,
+      -1px 1px 1px #000,
+       1px 1px 1px #000,
+       4px 4px 0 #a95;
+  text-align: center;
+}
+
+.brand h2 {
+  font-family: 'Cedarville Cursive', cursive;
+  font-size: 20px;
+  color: #000;
+  color: #fff;
+  color: #888;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  text-shadow:
+       1px 1px 1px #000,
+     -1px -1px 1px #000,
+      1px -1px 1px #000,
+      -1px 1px 1px #000,
+       1px 1px 1px #000;
+  atext-shadow: 4px 4px 0 #a95;
+}
+
+.stripes {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.stripes hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 5px 0;
+}
+
+.stripes i {
+  atext-shadow: 4px 4px 0 #a95;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: block;
+  height: 50px;
+  width: 50px;
+  font-size: 50px;
+  color: #eee;
+  background: rgba(219,209,175,1.0);
+  background: #fff;
+  background: url(/nice/purty_wood.png);
+  width: 80px;
+  text-align: center;
+  border-radius: 50%;
+  text-shadow:
+       1px 1px 1px #000,
+     -1px -1px 1px #000,
+      1px -1px 1px #000,
+      -1px 1px 1px #000,
+       1px 1px 1px #000;
+}
+
+.footer {
+  font-family: 'Cedarville Cursive', cursive;
+  color: #333;
+}
+
+.footer h6 {
+  color: #222;
+  font-family: 'Cedarville Cursive', cursive;
+}
+
+.btn {
+  position: relative;
+  border: 5px double rgba(50, 20, 0, 0.8);
+  border: 5px double rgba(0, 0, 0, 0.8);
+  border: 2px solid #eee;
+  font-family: 'Source Code Pro', sans-serif;
+  font-family: sans-serif;
+  text-transform: lowercase;
+  font-family: 'Cedarville Cursive', cursive;
+  letter-spacing: -1px;
+  background: rgba(255, 255, 255, 0.5);
+  color: #520;
+  color: #888;
+  color: #fff;
+  display: inline-block;
+  line-height: 530px;
+  text-align: center;
+  padding: 10px;
+  font-size: 30px;
+  border-radius: 5px;
+  width: 100%;
+  margin: 40px auto 20px;
+  font-size: 30px;
+  min-height: 500px;
+  text-shadow:
+       1px 1px 1px #555,
+     -1px -1px 1px #555,
+      1px -1px 1px #555,
+      -1px 1px 1px #555,
+       1px 1px 1px #555;
+}
+
+.btn img {
+  pointer-events: none;
+}
+
+.btn i {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: block;
+  height: 120px;
+  width: 50px;
+  font-size: 50px;
+  color: #fff;
+  width: 80px;
+  text-align: center;
+  border-radius: 50%;
+  z-index: 1;
+  text-shadow:
+       1px 1px 1px #000,
+     -1px -1px 1px #000,
+      1px -1px 1px #000,
+      -1px 1px 1px #000,
+       1px 1px 1px #000;
+}
+
+.example {
+  font-size: 20px;
+  color: #fff;
+  text-shadow:
+       1px 1px 1px #000,
+     -1px -1px 1px #000,
+      1px -1px 1px #000,
+      -1px 1px 1px #000,
+       1px 1px 1px #000;
+  font-family: 'Cedarville Cursive', cursive;
+  text-transform: lowercase;
+  line-height: 0px;
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.example i {
+  font-size: 50px;
+  line-height: 0px;
+  font-family: sans-serif;
+}
+
+.over {
+  border: 5px dotted #fff;
+}
+
+.share {
+  font-size: 20px;
+  color: #fff;
+  text-shadow:
+       1px 1px 1px #000,
+     -1px -1px 1px #000,
+      1px -1px 1px #000,
+      -1px 1px 1px #000,
+       1px 1px 1px #000;
+  font-family: 'Cedarville Cursive', cursive;
+  text-transform: lowercase;
+  line-height: 0px;
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.share input {
+  font-family: 'Source Code Pro', sans-serif;
+  border: none;
+  background: rgba(255,255,255, 0.5);
+}
+
+.hide {
+  display: none;
+}
