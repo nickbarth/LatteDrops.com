@@ -10,7 +10,9 @@
 
   Connection.prototype.bindMessage = function (func) {
     this.shareRoom.on('value', function (message) {
-      func(message.val()['src']);
+      if (message.val()) {
+        func(message.val()['src']);
+      }
     });
   };
 
@@ -23,6 +25,8 @@
     this.exampleEl = document.getElementById(example);
     this.shareUrlEl = document.getElementById(shareUrl);
     this.shareInputEl = this.shareUrlEl.getElementsByTagName('input')[0];
+    this.uploadAreaEl = document.getElementById('upload-area');
+    this.uploaderEl = document.getElementById('uploader');
 
     this.shareUrlEl.addEventListener('click', function (element) { element.target.select() }, false);
     this.fileShareEl.addEventListener('dragenter', this.dragEnter.bind(this), false);
@@ -31,6 +35,7 @@
     this.fileShareEl.addEventListener('drop', this.drop.bind(this), false);
 
     document.body.addEventListener('paste', this.paste.bind(this), false);
+    this.uploaderEl.addEventListener('change', this.uploader.bind(this), false);
 
     if (hash) {
       this.getConnection();
@@ -55,7 +60,7 @@
   };
 
   FileShare.prototype.receiveMessage = function (src) {
-    this.fileShareEl.innerHTML = "<img src='"+src+"'>";
+    this.uploadAreaEl.innerHTML = "<img src='"+src+"'>";
   };
 
   FileShare.prototype.dragEnter = function (event) {
@@ -83,6 +88,13 @@
 
   FileShare.prototype.readURL = function (event) {
     return event.dataTransfer.getData('text/html').match(/src=["'](.+?)['"]/)[1];
+  };
+
+  FileShare.prototype.uploader = function (event) {
+    var image = event.target.files[0];
+    if (image.type.match(/image/)) {
+      this.sendUpload(image);
+    }
   };
 
   FileShare.prototype.paste = function (event) {
