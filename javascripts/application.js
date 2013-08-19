@@ -30,6 +30,8 @@
     this.fileShareEl.addEventListener('dragleave', this.dragLeave.bind(this), false);
     this.fileShareEl.addEventListener('drop', this.drop.bind(this), false);
 
+    document.body.addEventListener('paste', this.paste.bind(this), false);
+
     if (hash) {
       this.getConnection();
     }
@@ -70,10 +72,11 @@
     connection.send(url);
   };
 
-  FileShare.prototype.sendUpload = function (event) {
+  FileShare.prototype.sendUpload = function (image) {
     var fileReader = new FileReader();
+    console.log('working send');
 
-    fileReader.readAsDataURL(event.dataTransfer.files[0]);
+    fileReader.readAsDataURL(image);
     fileReader.addEventListener('load', function (event) {
       this.sendURL(event.target.result);
     }.bind(this), false);
@@ -83,13 +86,27 @@
     return event.dataTransfer.getData('text/html').match(/src=["'](.+?)['"]/)[1];
   };
 
+  FileShare.prototype.paste = function (event) {
+    var image = event.clipboardData.items[0];
+    if (image.kind.match(/text/)) {
+      image.getAsString(function (url) {
+        if (url.match('^https?://.+\..+$')) {
+          this.sendURL(url);
+        }
+      }.bind(this));
+    } else if (image.type.match(/image/)) {
+      console.log('working match');
+      this.sendUpload(image.getAsFile());
+    }
+  };
+
   FileShare.prototype.drop = function (event) {
     event.stopPropagation();
     event.preventDefault();
     event.target.classList.remove('over');
 
     if (event.dataTransfer.files.length) {
-      this.sendUpload(event);
+      this.sendUpload(event.dataTransfer.files[0]);
     } else {
       this.sendURL(this.readURL(event));
     }
