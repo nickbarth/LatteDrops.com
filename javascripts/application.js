@@ -74,7 +74,6 @@
 
   FileShare.prototype.sendUpload = function (image) {
     var fileReader = new FileReader();
-    console.log('working send');
 
     fileReader.readAsDataURL(image);
     fileReader.addEventListener('load', function (event) {
@@ -88,14 +87,13 @@
 
   FileShare.prototype.paste = function (event) {
     var image = event.clipboardData.items[0];
-    if (image.kind.match(/text/)) {
+    if (image.type.match(/text/)) {
       image.getAsString(function (url) {
         if (url.match('^https?://.+\..+$')) {
           this.sendURL(url);
         }
       }.bind(this));
     } else if (image.type.match(/image/)) {
-      console.log('working match');
       this.sendUpload(image.getAsFile());
     }
   };
