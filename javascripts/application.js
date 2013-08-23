@@ -21,6 +21,7 @@
 
     this.hash = hash ? hash : ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).substr(-4);
     this.connection = null;
+    this.hasFocus = true;
     this.fileShareEl = document.getElementById(fileShare);
     this.exampleEl = document.getElementById(example);
     this.shareUrlEl = document.getElementById(shareUrl);
@@ -36,6 +37,9 @@
 
     document.body.addEventListener('paste', this.paste.bind(this), false);
     this.uploaderEl.addEventListener('change', this.uploader.bind(this), false);
+
+    window.addEventListener('focus', function () { this.hasFocus = true; this.updateTitle() }.bind(this), false);
+    window.addEventListener('blur', function () { this.hasFocus = false }.bind(this), false);
 
     if (hash) {
       this.getConnection();
@@ -59,8 +63,22 @@
     return this.connection;
   };
 
+  FileShare.prototype.updateTitle = function () {
+    var newTitle = document.title.replace(/^[\u2605\u2606]\s|\s[\u2605\u2606]$/g, '');
+    if (this.hasFocus) {
+      newTitle = "\u2605 "+newTitle+" \u2605";
+    } else {
+      newTitle = "\u2606 "+newTitle+" \u2606";
+    }
+
+    if (document.title !== newTitle) {
+      document.title = newTitle;
+    }
+  }
+
   FileShare.prototype.receiveMessage = function (src) {
     this.uploadAreaEl.innerHTML = "<img src='"+src+"'>";
+    this.updateTitle();
   };
 
   FileShare.prototype.dragEnter = function (event) {
