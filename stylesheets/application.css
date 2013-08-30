@@ -106,6 +106,7 @@ a:hover {
 }
 
 .picture {
+  color: #37BC9B;
   background: #fff;
   border-radius: 5px;
   border: 2px solid #E6E9ED;
@@ -114,6 +115,10 @@ a:hover {
   padding: 15px;
   position: relative;
   text-align: center;
+  min-height: 300px;
+  line-height: 300px;
+  font-size: 36px;
+  width: 100%;
 }
 
 .btn {
