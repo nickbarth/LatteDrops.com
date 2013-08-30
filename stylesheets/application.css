@@ -5,13 +5,24 @@
 }
 
 html, body {
-  background: url(/images/purty_wood.png);
+  background: url(../images/background.png);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body {
-  border-top: 10px solid rgba(255, 255, 255, 0.5);
-  padding-top: 20px;
+  border-top: 10px solid #ffffff;
+  padding-top: 25px;
+  color: #434A54;
+}
+body::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #E6E9ED;
 }
 
 a, a:hover {
@@ -43,13 +54,13 @@ a:hover {
                1px -1px 1px #000,
               -1px 1px 1px #000,
                1px 1px 1px #000,
-               4px 4px 0 #a95;
+               4px 4px 0 #AAB2BD;
 }
 
 .brand h2 {
   color: #888;
   color: rgba(255, 255, 255, 0.9);
-  font-family: 'Cedarville Cursive', cursive;
+  font-family: 'Roboto', sans-serif;
   font-size: 20px;
   text-align: center;
   text-shadow: 1px 1px 1px #000,
@@ -60,23 +71,23 @@ a:hover {
 }
 
 .stripes {
-  border-bottom: 1px solid #eee;
-  border-top: 1px solid #eee;
+  border-bottom: 1px solid #CCD1D9;
+  border-top: 1px solid #CCD1D9;
   position: relative;
   vertical-align: middle;
 }
 
 .stripes hr {
   border: none;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #CCD1D9;
   margin: 5px 0;
 }
 
 .stripes i {
-  background: url(/images/purty_wood.png);
+  background: url(../images/background.png);
   border-radius: 50%;
   bottom: 0;
-  color: #eee;
+  color: #E6E9ED;
   display: block;
   font-size: 50px;
   height: 50px;
@@ -94,13 +105,24 @@ a:hover {
                1px 1px 1px #000;
 }
 
+.picture {
+  background: #fff;
+  border-radius: 5px;
+  border: 2px solid #E6E9ED;
+  display: inline-block;
+  margin: 40px auto 20px;
+  padding: 15px;
+  position: relative;
+  text-align: center;
+}
+
 .btn {
   background: rgba(255, 255, 255, 0.5);
   border-radius: 5px;
-  border: 2px solid #eee;
+  border: 2px solid #CCD1D9;
   color: #fff;
   display: inline-block;
-  font-family: 'Cedarville Cursive', cursive;
+  font-family: 'Roboto', sans-serif;
   font-size: 30px;
   letter-spacing: -1px;
   line-height: 530px;
@@ -148,7 +170,7 @@ a:hover {
 
 .example {
   color: #fff;
-  font-family: 'Cedarville Cursive', cursive;
+  font-family: 'Roboto', sans-serif;
   font-size: 20px;
   line-height: 0px;
   margin: 0 0 20px;
@@ -180,7 +202,7 @@ a:hover {
 .share-button button {
   border: 2px solid #fff;
   padding: 10px;
-  font-family: 'Cedarville Cursive', cursive;
+  font-family: 'Roboto', sans-serif;
   background: rgba(255,255,255,0.5);
   color: #fff;
   border-radius: 5px;
@@ -217,33 +239,39 @@ a:hover {
 }
 
 .share {
-  color: #fff;
-  font-family: 'Cedarville Cursive', cursive;
-  font-size: 20px;
+  color: #000;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
   line-height: 0px;
   margin: 0 0 20px;
   text-align: center;
-  text-shadow: 1px 1px 1px #000,
-              -1px -1px 1px #000,
-               1px -1px 1px #000,
-              -1px 1px 1px #000,
-               1px 1px 1px #000;
-  text-transform: lowercase;
+  text-shadow: 
+    2px 2px #fff,
+    -2px 2px #fff,
+    0px -2px #fff;
 }
 
 .share input {
-  background: rgba(255,255,255, 0.5);
-  border: none;
+  border-radius: 5px;
+  background: #fff;
+  border: solid 2px #37BC9B;
+  font-size: 16px;
+  padding: 25px 10px;
   font-family: 'Source Code Pro', sans-serif;
+  box-shadow: none !important;
+}
+
+.share input:focus {
+  border-color: #37BC9B;
 }
 
 .footer {
-  color: #222;
-  font-family: 'Cedarville Cursive', cursive;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 20px;
 }
 
 .footer h6 {
-  color: #222;
   font-weight: normal;
-  font-family: 'Cedarville Cursive', cursive;
+  font-family: 'Roboto', sans-serif;
 }
