@@ -5,7 +5,7 @@
 }
 
 html, body {
-  background: url(../images/background.png);
+  background: url(../images/background1.png);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -14,6 +14,7 @@ body {
   padding-top: 25px;
   color: #434A54;
 }
+
 body::after {
   content: '';
   display: block;
@@ -38,6 +39,29 @@ a:hover {
   display: none;
 }
 
+.container {
+  position: relative;
+}
+
+.theme-changer a {
+  color: #fff;
+  cursor: pointer;
+}
+
+.theme-changer {
+  position: absolute;
+  color: #000;
+  top: 0;
+  right: 0;
+  background: rgba(255,255,255,0.5);
+  padding: 10px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-shadow: 1px 1px 1px #000,
+              -1px -1px 1px #000,
+               1px -1px 1px #000,
+              -1px 1px 1px #000;
+}
+
 .brand a, .brand a:hover {
   text-decoration: none;
 }
@@ -54,13 +78,14 @@ a:hover {
                1px -1px 1px #000,
               -1px 1px 1px #000,
                1px 1px 1px #000,
-               4px 4px 0 #AAB2BD;
+               4px 4px 0 #555;
+  margin-bottom: 40px;
 }
 
 .brand h2 {
   color: #888;
   color: rgba(255, 255, 255, 0.9);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cedarville Cursive', cursive;
   font-size: 20px;
   text-align: center;
   text-shadow: 1px 1px 1px #000,
@@ -71,23 +96,23 @@ a:hover {
 }
 
 .stripes {
-  border-bottom: 1px solid #CCD1D9;
-  border-top: 1px solid #CCD1D9;
+  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
   position: relative;
   vertical-align: middle;
 }
 
 .stripes hr {
   border: none;
-  border-top: 1px solid #CCD1D9;
+  border-top: 1px solid #eee;
   margin: 5px 0;
 }
 
 .stripes i {
-  background: url(../images/background.png);
+  background: url(../images/background1.png);
   border-radius: 50%;
   bottom: 0;
-  color: #E6E9ED;
+  color: #fff;
   display: block;
   font-size: 50px;
   height: 50px;
@@ -106,8 +131,11 @@ a:hover {
 }
 
 .picture {
-  color: #37BC9B;
+  font-family: 'Cedarville Cursive', cursive;
+  text-transform: lowercase;
+  color: #fff;
   background: #fff;
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 5px;
   border: 2px solid #E6E9ED;
   display: inline-block;
@@ -119,63 +147,19 @@ a:hover {
   line-height: 300px;
   font-size: 36px;
   width: 100%;
-}
-
-.btn {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 5px;
-  border: 2px solid #CCD1D9;
-  color: #fff;
-  display: inline-block;
-  font-family: 'Roboto', sans-serif;
-  font-size: 30px;
-  letter-spacing: -1px;
-  line-height: 530px;
-  margin: 40px auto 20px;
-  min-height: 250px;
-  padding: 10px;
-  position: relative;
-  text-align: center;
-  text-shadow: 1px 1px 1px #555,
-              -1px -1px 1px #555,
-               1px -1px 1px #555,
-              -1px 1px 1px #555,
-               1px 1px 1px #555;
-  text-transform: lowercase;
-  width: 100%;
-}
-
-.btn img {
-  pointer-events: none;
-}
-
-.btn i {
-  border-radius: 50%;
-  bottom: 0;
-  color: #fff;
-  display: block;
-  font-size: 50px;
-  height: 120px;
-  left: 0;
-  margin: auto;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  text-align: center;
   text-shadow: 1px 1px 1px #000,
               -1px -1px 1px #000,
                1px -1px 1px #000,
-              -1px 1px 1px #000,
-               1px 1px 1px #000;
-  top: 0;
-  width: 50px;
-  width: 80px;
-  z-index: 1;
+              -1px 1px 1px #000;
+}
+
+.picture img {
+  max-width: 100%;
 }
 
 .example {
   color: #fff;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cedarville Cursive', cursive;
   font-size: 20px;
   line-height: 0px;
   margin: 0 0 20px;
@@ -207,7 +191,7 @@ a:hover {
 .share-button button {
   border: 2px solid #fff;
   padding: 10px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cedarville Cursive', cursive;
   background: rgba(255,255,255,0.5);
   color: #fff;
   border-radius: 5px;
@@ -234,9 +218,10 @@ a:hover {
   color: #222;
 }
 
-@media screen and (max-device-width: 480px){
+@media screen and (max-width: 480px) {
   .share-button {
     display: block;
+    margin: 10px 0 40px;
   }
   .example {
     display: none;
@@ -244,17 +229,17 @@ a:hover {
 }
 
 .share {
-  color: #000;
+  color: #fff;
   font-weight: 400;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cedarville Cursive', cursive;
   font-size: 16px;
   line-height: 0px;
   margin: 0 0 20px;
   text-align: center;
-  text-shadow: 
-    2px 2px #fff,
-    -2px 2px #fff,
-    0px -2px #fff;
+  text-shadow: 1px 1px 1px #000,
+              -1px -1px 1px #000,
+               1px -1px 1px #000,
+              -1px 1px 1px #000;
 }
 
 .share input {
@@ -264,7 +249,10 @@ a:hover {
   font-size: 16px;
   padding: 25px 10px;
   font-family: 'Source Code Pro', sans-serif;
+  background: rgba(255,255,255,0.2);
+  border: none;
   box-shadow: none !important;
+  width: 100%;
 }
 
 .share input:focus {
@@ -272,11 +260,12 @@ a:hover {
 }
 
 .footer {
-  font-family: 'Roboto', sans-serif;
+  color: #000;
+  font-family: 'Cedarville Cursive', cursive;
   margin-bottom: 20px;
 }
 
 .footer h6 {
   font-weight: normal;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cedarville Cursive', cursive;
 }

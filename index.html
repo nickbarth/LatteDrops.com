@@ -3,58 +3,61 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro:100,200,300,400,500,900' rel='stylesheet' type='text/css'>
-  <link href="stylesheets/normalize.css" rel="stylesheet" type="text/css">
-  <link href="stylesheets/foundation.min.css" rel="stylesheet" type="text/css">
-  <link href="stylesheets/application.css" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro:100,200,300,400,500,900|Roboto|Cedarville+Cursive:100,200,300,400,500' rel='stylesheet' type='text/css'>
+  <link href="stylesheets/application1.css" rel="stylesheet" type="text/css">
   <link href="http://lattedrops.com/images/LatteDropsIcon.png" rel="icon" type="image/png">
   <title>&#9733; LatteDrops.com - Share images with friends. &#9733;</title>
 </head>
 <body>
-  <div class="row main">
-    <div class="large-12 columns">
-      <div class="brand">
-        <a href="/">
-          <h2>Classic Traditional</h2>
-          <h1>
-            Latte
-            <i class="icon-star"></i>
-            Drops
-          </h1>
-        </a>
-        <div class="stripes">
-          <hr/>
+  <div class="container">
+    <div class="row main">
+      <div class="col-md-12">
+        <div class="brand">
           <a href="/">
-            <i class="icon-coffee"></i>
+            <h2>Classic Traditional</h2>
+            <h1>
+              Latte
+              <i class="icon-star"></i>
+              Drops
+            </h1>
           </a>
+          <div class="stripes">
+            <hr/>
+            <a href="/">
+              <i class="icon-coffee"></i>
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="picture" id="share-file">
-        <div id="upload-area">
-          Share Some Drops
-          <i class="icon-cloud-upload"></i>
+        <div class="picture" id="share-file">
+          <div id="upload-area">
+            Share Some Drops
+            <i class="icon-cloud-upload"></i>
+          </div>
         </div>
-      </div>
-      <div class="share-button">
-        <input type="file" id="uploader">
-        <button>Share Image</button>
-      </div>
-      <div class="share hide" id="share-url">
-        Share this room with your friends
-        <input readonly type="text" value="">
-      </div>
-      <div class="example" id="example">
-        <img src="images/grumpy_cat.jpg" width="200">
-        Try Dropping This <i>&#x2934;</i>
+        <div class="share-button">
+          <input type="file" id="uploader">
+          <button>Share Image</button>
+        </div>
+        <div class="share hide" id="share-url">
+          <p>Share this room with your friends</p>
+          <input id="room-url" type="text" value="">
+        </div>
+        <div class="example" id="example">
+          <img src="images/grumpy_cat.jpg" width="200">
+          Try Dropping This <i>&#x2934;</i>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row footer">
-    <div class="large-12 columns">
-      <h6>LatteDrops.com - Share images with friends.</h6>
-      Copyright &copy; 2013 <a href="mailto:nick@nick.so">Nick Barth</a>
+    <div class="row footer">
+      <div class="col-md-12">
+        <h6>LatteDrops.com - Share images with friends.</h6>
+        Copyright &copy; 2013 <a href="mailto:nick@nick.so">Nick Barth</a>
+      </div>
+    </div>
+    <div class="theme-changer">
+      <a id="theme-changer-button">Theme</a>
     </div>
   </div>
 
