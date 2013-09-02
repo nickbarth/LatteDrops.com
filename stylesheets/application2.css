@@ -220,6 +220,7 @@ a:hover {
   .theme-change {
     top: -22px;
     right: 3px;
+    margin: 0;
     padding: 10px;
   }
   .brand h2 {
