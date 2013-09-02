@@ -225,11 +225,12 @@ a:hover {
     display: none;
   }
   .theme-change {
-    margin: -20px 3px 5px 5px;
+    top: -22px;
+    right: 3px;
     padding: 10px;
   }
   .brand h2 {
-    margin-top: 0;
+    margin-top: -15px;
   }
   .brand h1 {
     font-size: 35px;
@@ -237,7 +238,7 @@ a:hover {
   .picture {
     min-height: 200px;
     line-height: 200px;
-    font-size: 30px;
+    font-size: 25px;
   }
   a, a:hover {
     text-decoration: none;
