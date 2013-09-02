@@ -460,7 +460,7 @@
     window.room = new Room();
 
     if (window.location.hash) {
-      window.room.joinRoom();
+      window.room.joinRoom(window.location.hash.substr(1));
     }
 
     new ThemeChanger();
