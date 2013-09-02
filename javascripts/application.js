@@ -265,7 +265,7 @@
     }
 
     if (Utils.isImage(image)) {
-      this.sendImage(image.getAsFile());
+      Utils.readURL(image.getAsFile(), this.sendImage.bind(this));
     } else {
       image.getAsString(readURLFromString.bind(this));
     }
