@@ -1,3 +1,5 @@
+.flavor:after { content: 'Modern Urban'; }
+
 * {
   -webkit-appearance: none;
   margin: 0;
@@ -15,7 +17,7 @@ body {
   color: #434A54;
 }
 
-body::after {
+body:after {
   content: '';
   display: block;
   position: absolute;
