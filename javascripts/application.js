@@ -1,69 +1,348 @@
 (function () {
-  function Connection (hash) {
+  /**
+   * Connection - Establish socket channel.
+   *
+   * @param {String} hash
+   */
+
+  function Connection (room) {
     this.firebase = new Firebase('https://lattedrops.firebaseio.com');
-    this.shareRoom = this.firebase.child('rooms/'+hash);
+    this.shareRoom = this.firebase.child('rooms/'+room);
   };
+
+  /**
+   * Send message using channel.
+   *
+   * @param {string} src
+   * @api public
+   */
 
   Connection.prototype.send = function (src) {
     this.shareRoom.set({ "src": src });
   };
 
-  Connection.prototype.bindMessage = function (func) {
+  /**
+   * Subscribes channel events to function.
+   *
+   * @param {Function} fn
+   * @api public
+   */
+
+  Connection.prototype.subscribe = function (fn) {
     this.shareRoom.on('value', function (message) {
       if (message.val()) {
-        func(message.val()['src']);
+        fn(message.val()['src']);
       }
     });
   };
 
-  function FileShare (fileShare, example, shareUrl, hash) {
-    var input;
+  /**
+   * RoomClient - Sends images using connection.
+   *
+   * @param {Connection} connection
+   * @param {TitleNotification} titleNotification
+   * @param {UIEvents} uiEvents
+   */
 
-    this.hash = hash ? hash : ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).substr(-4);
+  function RoomClient (connection, titleNotification, uiEvents) {
+    this.connection = connection;
+    this.titleNotification = titleNotification;
+    this.uiEvents = uiEvents;
+
+    this.connection.subscribe(this.receiveImage.bind(this));
+  }
+
+  /**
+   * Forwards image src to connection.
+   *
+   * @param {string} src
+   * @api public
+   */
+
+  RoomClient.prototype.sendImage = function (src) {
+    this.connection.send(src);
+  };
+
+  /**
+   * Receives image src from connection channel.
+   *
+   * @param {string} src
+   * @api private
+   */
+
+  RoomClient.prototype.receiveImage = function (src) {
+    this.titleNotification.notify();
+    this.uiEvents.showShareURL();
+    this.uiEvents.updateImage(src);
+  };
+
+  /**
+   *  Room - Sets up a new image sharing channel.
+   */
+
+  function Room () {
     this.connection = null;
-    this.hasFocus = true;
-    this.fileShareEl = document.getElementById(fileShare);
-    this.exampleEl = document.getElementById(example);
-    this.shareUrlEl = document.getElementById(shareUrl);
-    this.shareInputEl = this.shareUrlEl.getElementsByTagName('input')[0];
-    this.uploadAreaEl = document.getElementById('upload-area');
-    this.uploaderEl = document.getElementById('uploader');
+    this.roomClient = null;
 
-    this.shareUrlEl.addEventListener('click', function (element) { element.target.select() }, false);
+    this.DropListener = new DropListener(null);
+    this.PasteListener = new PasteListener(null);
+    this.SelectorListener = new SelectorListener(null);
+
+    this.titleNotification = new TitleNotification();
+    this.uiEvents = new UIEvents();
+
+    window.addEventListener('hashchange', this.joinRoom.bind(this), false);
+  }
+
+  /**
+   * Joins / Creates a new room giving a room name.
+   *
+   * @param {string} room (takes location.hash as room name on hash change event)
+   * @api public
+   */
+
+  Room.prototype.joinRoom = function (room) {
+    room = typeof room === 'object' ? window.location.hash.substr(1) : room;
+
+    if (room === this.currentRoom) {
+      return;
+    }
+
+    this.connection = null;
+    this.roomClient = null;
+
+    this.uiEvents.hideShareURL();
+    this.uiEvents.setWindowHash(room);
+
+    this.connection = new Connection(room);
+    this.roomClient = new RoomClient(this.connection, this.titleNotification, this.uiEvents);
+
+    this.DropListener.setRoomClient(this.roomClient);
+    this.PasteListener.setRoomClient(this.roomClient);
+    this.SelectorListener.setRoomClient(this.roomClient);
+
+    this.currentRoom = room;
+    window.location.hash = room;
+  };
+
+  /**
+   * UploadListener - Base uploader prototype.
+   *
+   * @param {RoomClient} roomClient
+   * @api public
+   */
+
+  function UploadListener (roomClient) {
+    this.roomClient = roomClient;
+  }
+
+  /**
+   * Updates current RoomClient.
+   *
+   * @param {RoomClient} roomClient
+   * @api public
+   */
+
+  UploadListener.prototype.setRoomClient = function (roomClient) {
+    this.roomClient = roomClient;
+  }
+
+  /**
+   * Sends image to current room and creates a room if none exists.
+   *
+   * @param {string} src
+   * @api public
+   */
+
+  UploadListener.prototype.sendImage = function (src) {
+    if (this.roomClient === null) {
+      var randomRoom = ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).substr(-4);
+      window.room.joinRoom(randomRoom);
+    }
+
+    this.roomClient.sendImage(src);
+  }
+
+  /**
+   * DropListener - Listens for drop uploads.
+   *
+   * @param {RoomClient} roomClient
+   * @api public
+   */
+
+  function DropListener (roomClient) {
+    UploadListener.call(this, roomClient);
+
+    this.fileShareEl = document.getElementById('share-file');
     this.fileShareEl.addEventListener('dragenter', this.dragEnter.bind(this), false);
     this.fileShareEl.addEventListener('dragover', this.dragOver.bind(this), false);
     this.fileShareEl.addEventListener('dragleave', this.dragLeave.bind(this), false);
     this.fileShareEl.addEventListener('drop', this.drop.bind(this), false);
+  }
+
+  DropListener.prototype = Object.create(UploadListener.prototype);
+
+  /**
+   * Drag enter event.
+   *
+   * @param {event} event
+   * @api private
+   */
+
+  DropListener.prototype.dragEnter = function (event) {
+    event.dataTransfer.dropEffect = 'move';
+    event.target.classList.add('over');
+  };
+
+  /**
+   * Drag over event.
+   *
+   * @param {event} event
+   * @api private
+   */
+
+  DropListener.prototype.dragOver = function (event) {
+    event.preventDefault();
+  };
+
+  /**
+   * Sends dropped image as data url or src.
+   *
+   * @param {event} event
+   * @api private
+   */
+
+  DropListener.prototype.drop = function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    event.target.classList.remove('over');
+
+    if (Utils.isURL(event)) {
+      this.sendImage(Utils.getURL(event));
+    } else {
+      Utils.readURL(event.dataTransfer.files[0], this.sendImage.bind(this));
+    }
+  };
+
+
+  /**
+   * Drag leave event.
+   *
+   * @param {event} event
+   * @api private
+   */
+
+  DropListener.prototype.dragLeave = function (event) {
+    event.target.classList.remove('over');
+  };
+
+  /**
+   * PasteListener - Listens for paste uploads.
+   */
+
+  function PasteListener (roomClient) {
+    UploadListener.call(this, roomClient);
 
     document.body.addEventListener('paste', this.paste.bind(this), false);
+  }
+
+  PasteListener.prototype = Object.create(UploadListener.prototype);
+
+  /**
+   * Sends pasted image as data url or src.
+   *
+   * @param {event} event
+   * @api private
+   */
+
+  PasteListener.prototype.paste = function (event) {
+    var image = event.clipboardData.items[0];
+
+    function readURLFromString (src) {
+      if (src.match('^https?://.+\..+$')) {
+        this.sendImage(src);
+      }
+    }
+
+    if (Utils.isImage(image)) {
+      this.sendImage(image.getAsFile());
+    } else {
+      image.getAsString(readURLFromString.bind(this));
+    }
+  };
+
+  /**
+   * UploadListener - Listens for file selector uploads.
+   */
+
+  function SelectorListener (roomClient) {
+    UploadListener.call(this, roomClient);
+
+    this.uploaderEl = document.getElementById('uploader');
     this.uploaderEl.addEventListener('change', this.uploader.bind(this), false);
+  }
 
-    window.addEventListener('focus', function () { this.hasFocus = true; this.updateTitle() }.bind(this), false);
+  SelectorListener.prototype = Object.create(UploadListener.prototype);
+
+  /**
+   * Sends selected image as data url.
+   *
+   * @params {event} event
+   * @api private
+   */
+
+  SelectorListener.prototype.uploader = function (event) {
+    var image = event.target.files[0];
+    Utils.readURL(image, this.sendImage.bind(this));
+  };
+
+  /**
+   * Utils - Functions for Image Parsing.
+   */
+
+  Utils = {
+    getURL: function (event) {
+      return event.dataTransfer.getData('text/html').match(/src=["'](.+?)['"]/)[1];
+    },
+    isURL: function (event) {
+      return !event.dataTransfer.files.length;
+    },
+    isImage: function (image) {
+      return image.type.match(/image/);
+    },
+    readURL: function (image, fn) {
+      var fileReader = new FileReader();
+
+      if (Utils.isImage(image)) {
+        return;
+      }
+
+      function loadURL (event) {
+        fn(event.target.result);
+      }
+
+      fileReader.readAsDataURL(image);
+      fileReader.addEventListener('load', loadURL.bind(this), false);
+    }
+  }
+
+  /**
+   * TitleNotification - Updates title if current tab is not active.
+   */
+
+  function TitleNotification () {
+    this.hasFocus = true;
+    window.addEventListener('focus', function () { this.hasFocus = true; this.notify() }.bind(this), false);
     window.addEventListener('blur', function () { this.hasFocus = false }.bind(this), false);
+  }
 
-    if (hash) {
-      this.getConnection();
-    }
-  };
+  /**
+   * Updates browser title depending on browser tab focus.
+   *
+   * @api public
+   */
 
-  FileShare.prototype.getHash = function () {
-    return this.hash;
-  };
-
-  FileShare.prototype.getConnection = function () {
-    if (!this.connection) {
-      window.location.hash = this.hash;
-      this.connection = new Connection(this.hash);
-      this.connection.bindMessage(this.receiveMessage.bind(this));
-      this.exampleEl.classList.add('hide');
-      this.shareUrlEl.classList.remove('hide');
-      this.shareInputEl.value = window.location.href;
-    }
-
-    return this.connection;
-  };
-
-  FileShare.prototype.updateTitle = function () {
+  TitleNotification.prototype.notify = function () {
     var newTitle = document.title.replace(/^[\u2605\u2606]\s|\s[\u2605\u2606]$/g, '');
     if (this.hasFocus) {
       newTitle = "\u2605 "+newTitle+" \u2605";
@@ -76,73 +355,67 @@
     }
   }
 
-  FileShare.prototype.receiveMessage = function (src) {
+  /**
+   *  UIEvents - Updates Browser UI Elements.
+   */
+
+  function UIEvents () {
+    this.exampleEl = document.getElementById('example');
+    this.shareUrlEl = document.getElementById('share-url');
+    this.shareInputEl = this.shareUrlEl.getElementsByTagName('input')[0];
+    this.uploadAreaEl = document.getElementById('upload-area');
+  }
+
+  /**
+   * Sets location hash.
+   *
+   * @param {string} hash
+   * @api public
+   */
+
+  UIEvents.prototype.setWindowHash = function (hash) {
+    window.location.hash = hash;
+    this.shareInputEl.value = window.location.href;
+  }
+
+  /**
+   * Shows room permalink.
+   *
+   * @param {string} hash
+   * @api public
+   */
+
+  UIEvents.prototype.showShareURL = function (hash) {
+    this.exampleEl.classList.add('hide');
+    this.shareUrlEl.classList.remove('hide');
+  };
+
+  /**
+   * Resets room UI.
+   *
+   * @api public
+   */
+
+  UIEvents.prototype.hideShareURL = function () {
+    this.uploadAreaEl.innerHTML = 'Share Some Drops <i class="icon-cloud-upload"></i>';
+    this.exampleEl.classList.remove('hide');
+    this.shareUrlEl.classList.add('hide');
+  };
+
+  /**
+   * Changes current image.
+   *
+   * @param {string} src
+   * @api public
+   */
+
+  UIEvents.prototype.updateImage = function (src) {
     this.uploadAreaEl.innerHTML = "<img src='"+src+"'>";
-    this.updateTitle();
   };
 
-  FileShare.prototype.dragEnter = function (event) {
-    event.dataTransfer.dropEffect = 'move';
-    event.target.classList.add('over');
-  };
-
-  FileShare.prototype.dragOver = function (event) {
-    event.preventDefault();
-  };
-
-  FileShare.prototype.sendURL = function (url) {
-    var connection = this.getConnection()
-    connection.send(url);
-  };
-
-  FileShare.prototype.sendUpload = function (image) {
-    var fileReader = new FileReader();
-
-    fileReader.readAsDataURL(image);
-    fileReader.addEventListener('load', function (event) {
-      this.sendURL(event.target.result);
-    }.bind(this), false);
-  };
-
-  FileShare.prototype.readURL = function (event) {
-    return event.dataTransfer.getData('text/html').match(/src=["'](.+?)['"]/)[1];
-  };
-
-  FileShare.prototype.uploader = function (event) {
-    var image = event.target.files[0];
-    if (image.type.match(/image/)) {
-      this.sendUpload(image);
-    }
-  };
-
-  FileShare.prototype.paste = function (event) {
-    var image = event.clipboardData.items[0];
-    if (image.type.match(/text/)) {
-      image.getAsString(function (url) {
-        if (url.match('^https?://.+\..+$')) {
-          this.sendURL(url);
-        }
-      }.bind(this));
-    } else if (image.type.match(/image/)) {
-      this.sendUpload(image.getAsFile());
-    }
-  };
-
-  FileShare.prototype.drop = function (event) {
-    event.stopPropagation();
-    event.preventDefault();
-    event.target.classList.remove('over');
-
-    if (event.dataTransfer.files.length) {
-      this.sendUpload(event.dataTransfer.files[0]);
-    } else {
-      this.sendURL(this.readURL(event));
-    }
-  };
-
-  FileShare.prototype.dragLeave = function (event) {
-    event.target.classList.remove('over');
-  };
+  /**
+   * ThemeChanger - Cycles through stylesheet themes.
+   */
 
   function ThemeChanger () {
     this.themeCount = 2;
@@ -151,9 +424,15 @@
     this.themeButton = document.getElementById('theme-changer-button');
     this.styleSheet = document.querySelector('link[href="stylesheets/application1.css"]');
 
-    console.log(this.styleSheet);
     this.themeButton.addEventListener('click', this.toggleTheme.bind(this), false);
   }
+
+
+  /**
+   * Updates current theme.
+   *
+   * @api private
+   */
 
   ThemeChanger.prototype.toggleTheme = function () {
     var oldTheme = this.currentTheme;
@@ -164,8 +443,8 @@
     }
 
     if (this.styleSheet) {
-      var oldStyle = "application" + oldTheme,
-        newStyle = "application" + this.currentTheme;
+      var oldStyle = 'application' + oldTheme,
+        newStyle = 'application' + this.currentTheme;
 
       this.styleSheet.href = this.styleSheet.href.replace(oldStyle, newStyle);
     }
@@ -173,19 +452,17 @@
     return false;
   }
 
-  var fileShare = null, themeChanger = null;
+  /**
+   * Main Function
+   */
 
-  if (window.location.hash === "") {
-    fileShare = new FileShare('share-file', 'example', 'share-url', null);
-  } else {
-    fileShare = new FileShare('share-file', 'example', 'share-url', window.location.hash.substr(1));
-  }
+  document.addEventListener('DOMContentLoaded', function main () {
+    window.room = new Room();
 
-  window.addEventListener("hashchange", function () {
-    if (window.location.hash.substr(1) !== fileShare.getHash()) {
-      window.location.reload(true);
+    if (window.location.hash) {
+      window.room.joinRoom();
     }
-  }, false);
 
-  new ThemeChanger();
+    new ThemeChanger();
+  }, false);
 })();
