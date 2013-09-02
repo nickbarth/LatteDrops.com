@@ -313,7 +313,7 @@
     readURL: function (image, fn) {
       var fileReader = new FileReader();
 
-      if (Utils.isImage(image)) {
+      if (!Utils.isImage(image)) {
         return;
       }
 
