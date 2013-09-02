@@ -195,7 +195,6 @@ a:hover {
   background: rgba(255,255,255,0.5);
   color: #fff;
   border-radius: 5px;
-  transition: all 1s;
   text-shadow: 1px 1px 1px #000,
               -1px -1px 1px #000,
                1px -1px 1px #000,
@@ -215,7 +214,6 @@ a:hover {
 
 .share-button button:hover  {
   background: rgba(255,255,255,0.7);
-  color: #222;
 }
 
 @media screen and (max-width: 480px) {
@@ -225,6 +223,24 @@ a:hover {
   }
   .example {
     display: none;
+  }
+  .theme-change {
+    margin: -20px 3px 5px 5px;
+    padding: 10px;
+  }
+  .brand h2 {
+    margin-top: 0;
+  }
+  .brand h1 {
+    font-size: 35px;
+  }
+  .picture {
+    min-height: 200px;
+    line-height: 200px;
+    font-size: 30px;
+  }
+  a, a:hover {
+    text-decoration: none;
   }
 }
 

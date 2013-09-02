@@ -146,56 +146,8 @@ a:hover {
   width: 100%;
 }
 
-.btn {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 5px;
-  border: 2px solid #CCD1D9;
-  color: #fff;
-  display: inline-block;
-  font-family: 'Roboto', sans-serif;
-  font-size: 30px;
-  letter-spacing: -1px;
-  line-height: 530px;
-  margin: 40px auto 20px;
-  min-height: 250px;
-  padding: 10px;
-  position: relative;
-  text-align: center;
-  text-shadow: 1px 1px 1px #555,
-              -1px -1px 1px #555,
-               1px -1px 1px #555,
-              -1px 1px 1px #555,
-               1px 1px 1px #555;
-  text-transform: lowercase;
-  width: 100%;
-}
-
-.btn img {
-  pointer-events: none;
-}
-
-.btn i {
-  border-radius: 50%;
-  bottom: 0;
-  color: #fff;
-  display: block;
-  font-size: 50px;
-  height: 120px;
-  left: 0;
-  margin: auto;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  text-shadow: 1px 1px 1px #000,
-              -1px -1px 1px #000,
-               1px -1px 1px #000,
-              -1px 1px 1px #000,
-               1px 1px 1px #000;
-  top: 0;
-  width: 50px;
-  width: 80px;
-  z-index: 1;
+.picture img {
+  max-width: 100%;
 }
 
 .example {
@@ -236,7 +188,6 @@ a:hover {
   background: rgba(255,255,255,0.5);
   color: #fff;
   border-radius: 5px;
-  transition: all 1s;
   text-shadow: 1px 1px 1px #000,
               -1px -1px 1px #000,
                1px -1px 1px #000,
@@ -256,15 +207,33 @@ a:hover {
 
 .share-button button:hover  {
   background: rgba(255,255,255,0.7);
-  color: #222;
 }
 
-@media screen and (max-device-width: 480px){
+@media screen and (max-width: 480px){
   .share-button {
     display: block;
+    margin: 10px 0 40px;
   }
   .example {
     display: none;
+  }
+  .theme-change {
+    margin: -20px 3px 5px 5px;
+    padding: 10px;
+  }
+  .brand h2 {
+    margin-top: 0;
+  }
+  .brand h1 {
+    font-size: 35px;
+  }
+  .picture {
+    min-height: 200px;
+    line-height: 200px;
+    font-size: 30px;
+  }
+  a, a:hover {
+    text-decoration: none;
   }
 }
 
