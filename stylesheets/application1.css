@@ -13,7 +13,6 @@
 
 html, body {
   background: #FFC764;
-  background: url(http://thepatternlibrary.com/img/u.png) fixed;
   background: url(../images/background1.png) fixed;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -104,7 +103,7 @@ a:hover {
 }
 
 .stripes i {
-  background: url(../images/background1.png);
+  background: url(../images/background1.png) 0 0 fixed;
   border-radius: 50%;
   bottom: 0;
   color: #fff;
