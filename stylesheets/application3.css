@@ -7,14 +7,8 @@
   padding: 0;
 }
 
-.clear {
-  clear: both;
-}
-
 html, body {
-  background: #FFC764;
-  background: url(http://thepatternlibrary.com/img/u.png) fixed;
-  background: url(../images/background1.png) fixed;
+  background: url(../images/background1.png);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -59,13 +53,17 @@ a:hover {
 }
 
 .theme-changer {
-  float: right;
+  position: absolute;
   color: #000;
-  border: 2px solid #fff;
-  background: transparent;
+  top: 0;
+  right: 0;
+  background: rgba(255,255,255,0.5);
   padding: 10px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin-bottom: -50px;
+  text-shadow: 1px 1px 1px #000,
+              -1px -1px 1px #000,
+               1px -1px 1px #000,
+              -1px 1px 1px #000;
 }
 
 .brand a, .brand a:hover {
@@ -79,6 +77,12 @@ a:hover {
   font-weight: 900;
   text-align: center;
   text-transform: uppercase;
+  text-shadow: 1px 1px 1px #000,
+              -1px -1px 1px #000,
+               1px -1px 1px #000,
+              -1px 1px 1px #000,
+               1px 1px 1px #000,
+               4px 4px 0 #555;
   margin-bottom: 40px;
 }
 
@@ -88,6 +92,11 @@ a:hover {
   font-family: 'Cedarville Cursive', cursive;
   font-size: 20px;
   text-align: center;
+  text-shadow: 1px 1px 1px #000,
+              -1px -1px 1px #000,
+               1px -1px 1px #000,
+              -1px 1px 1px #000,
+               1px 1px 1px #000;
 }
 
 .stripes {
@@ -118,29 +127,38 @@ a:hover {
   text-align: center;
   top: 0;
   width: 80px;
+  text-shadow: 1px 1px 1px #000,
+              -1px -1px 1px #000,
+               1px -1px 1px #000,
+              -1px 1px 1px #000,
+               1px 1px 1px #000;
 }
 
 .picture {
   font-family: 'Cedarville Cursive', cursive;
   text-transform: lowercase;
   color: #fff;
-  background: rgba(255,255,255,0.2);
-  border: 2px solid #fff;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  border: 2px solid #E6E9ED;
   display: inline-block;
-  margin: 40px auto 40px;
+  margin: 40px auto 20px;
   padding: 15px;
   position: relative;
   text-align: center;
   min-height: 300px;
-  line-height: 270px;
-  font-size: 300px;
+  line-height: 300px;
+  font-size: 36px;
   width: 100%;
+  text-shadow: 1px 1px 1px #000,
+              -1px -1px 1px #000,
+               1px -1px 1px #000,
+              -1px 1px 1px #000;
 }
 
 .picture img {
   max-width: 100%;
-  margin: 0 auto;
-  display: block;
 }
 
 .example {
@@ -148,8 +166,13 @@ a:hover {
   font-family: 'Cedarville Cursive', cursive;
   font-size: 20px;
   line-height: 0px;
-  margin: 0 0 30px;
+  margin: 0 0 20px;
   text-align: center;
+  text-shadow: 1px 1px 1px #000,
+              -1px -1px 1px #000,
+               1px -1px 1px #000,
+              -1px 1px 1px #000,
+               1px 1px 1px #000;
   text-transform: lowercase;
 }
 
@@ -170,10 +193,16 @@ a:hover {
 }
 
 .share-button button {
+  border: 2px solid #fff;
   padding: 10px;
   font-family: 'Cedarville Cursive', cursive;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.5);
   color: #fff;
+  border-radius: 5px;
+  text-shadow: 1px 1px 1px #000,
+              -1px -1px 1px #000,
+               1px -1px 1px #000,
+              -1px 1px 1px #000;
 }
 
 .share-button input {
@@ -227,11 +256,17 @@ a:hover {
   font-family: 'Cedarville Cursive', cursive;
   font-size: 16px;
   line-height: 0px;
-  margin: 0 0 30px;
+  margin: 0 0 20px;
   text-align: center;
+  text-shadow: 1px 1px 1px #000,
+              -1px -1px 1px #000,
+               1px -1px 1px #000,
+              -1px 1px 1px #000;
 }
 
 .share input {
+  border-radius: 5px;
+  background: #fff;
   border: solid 2px #37BC9B;
   font-size: 16px;
   padding: 25px 10px;
@@ -240,8 +275,6 @@ a:hover {
   border: none;
   box-shadow: none !important;
   width: 100%;
-  border: 2px solid #fff;
-  color: #fff;
 }
 
 .share input:focus {
@@ -249,13 +282,9 @@ a:hover {
 }
 
 .footer {
-  color: #fff;
+  color: #000;
   font-family: 'Cedarville Cursive', cursive;
   margin-bottom: 20px;
-}
-
-.footer a {
-  color: #fff;
 }
 
 .footer h6 {

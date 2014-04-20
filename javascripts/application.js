@@ -418,7 +418,7 @@
    */
 
   function ThemeChanger () {
-    this.themeCount = 2;
+    this.themeCount = 3;
     this.currentTheme = 1;
 
     this.themeButton = document.getElementById('theme-changer-button');
