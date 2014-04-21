@@ -397,7 +397,7 @@
    */
 
   UIEvents.prototype.hideShareURL = function () {
-    this.uploadAreaEl.innerHTML = 'Share Some Drops <i class="icon-cloud-upload"></i>';
+    this.uploadAreaEl.innerHTML = '<i class="icon-cloud-upload"></i>';
     this.exampleEl.classList.remove('hide');
     this.shareUrlEl.classList.add('hide');
   };
